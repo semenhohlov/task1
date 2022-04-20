@@ -5,7 +5,6 @@ import Store, {load, addNote, updateNote, deleteNote,
 function start() {
   const data = DataLoader.load();
   Store.dispatch(load(data));
-  console.log(Store);
   const groups = Store.getState().groups;
   const notes = Store.getState().notes;
   const groupsContent = document.querySelector('#groupsContent');

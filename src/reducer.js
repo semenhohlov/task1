@@ -30,13 +30,13 @@ const initialState = {
 };
 
 export function rootReducer(state, action) {
-  let notes = [];
+  let notes = [...state.notes];
   switch (action.type) {
     case LOAD:
       return {...state, groups: [...action.payload.groups],
         notes: [...action.payload.notes]};
     case ADD_NOTE:
-      notes = state.notes.push(action.payload);
+      notes.push(action.payload);
       return {...state, notes: [...notes]};
     case UPDATE_NOTE:
       notes = state.notes.map(item => {
