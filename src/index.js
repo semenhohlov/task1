@@ -1,10 +1,13 @@
 import DataLoader from './data.js';
-
+import Store, {load, addNote, updateNote, deleteNote,
+  showArchive, setActiveGroup} from './reducer.js';
 
 function start() {
   const data = DataLoader.load();
-  const groups = data.groups;
-  const notes = data.notes;
+  Store.dispatch(load(data));
+  console.log(Store);
+  const groups = Store.getState().groups;
+  const notes = Store.getState().notes;
   const groupsContent = document.querySelector('#groupsContent');
   const notesContent = document.querySelector('#notesContent');
   groups.forEach(item => {
