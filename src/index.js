@@ -1,6 +1,7 @@
 import DataLoader from './data.js';
 import Store, {load, addNote, updateNote, deleteNote,
   showArchive, setActiveGroup} from './reducer.js';
+import modalWindow from './modal.js';
 
 class Groups {
   constructor(getState, content, setActive, archiveButton, allButton) {
@@ -76,8 +77,16 @@ class Notes {
     if (activeGroup) {
       this.items = this.items.filter(item => item.group_id === activeGroup.group_id);
     }
+    if (!this.items.length) {
+      this.content.innerHTML = 'Записи відсутні.';
+    }
     this.items.forEach(item => {
       const div = document.createElement('div');
+      const divFlex = document.createElement('div');
+      const divContent = document.createElement('div');
+      const divMenu = document.createElement('div');
+      divFlex.classList.add('flex');
+      divFlex.classList.add('content-space-between');
       item.editHandler = (event) => {
         event.preventDefault();
         console.log('edit note', item.content);
@@ -95,7 +104,16 @@ class Notes {
       item.div = div;
       div.classList.add('note-item');
       div.classList.add(this.img[item.group_id - 1]);
-      div.innerHTML = item.content;
+      const date = new Date(Date.now());
+      date.setTime(item.created_at);
+      let content = `${item.content} ${date.toLocaleDateString()}`;
+      if (item.updated_at.length) {
+        item.updated_at.forEach(d => {
+          date.setTime(d);
+          content += ` [${date.toLocaleDateString()}]`;
+        });
+      }
+      divContent.innerHTML = content;
       // buttons
       const editBtn = document.createElement('button');
       const archiveBtn = document.createElement('button');
@@ -117,10 +135,13 @@ class Notes {
       editBtn.addEventListener('click', item.editHandler);
       archiveBtn.addEventListener('click', item.archiveHandler);
       deleteBtn.addEventListener('click', item.deleteHandler);
-      div.insertAdjacentElement('beforeend', editBtn);
-      div.insertAdjacentElement('beforeend', archiveBtn);
-      div.insertAdjacentElement('beforeend', deleteBtn);
+      divMenu.insertAdjacentElement('beforeend', editBtn);
+      divMenu.insertAdjacentElement('beforeend', archiveBtn);
+      divMenu.insertAdjacentElement('beforeend', deleteBtn);
 
+      divFlex.insertAdjacentElement('beforeend', divContent);
+      divFlex.insertAdjacentElement('beforeend', divMenu);
+      div.insertAdjacentElement('beforeend', divFlex);
       this.content.insertAdjacentElement('beforeend', div);
     });
   }
@@ -141,6 +162,9 @@ function start() {
   load(data);
   const groupsContent = document.querySelector('#groupsContent');
   const addButton = document.querySelector('#addButton');
+  addButton.addEventListener('click', () => {
+    modalWindow('TITLE', 'BODY');
+  });
   const allButton = document.querySelector('#allButton');
   allButton.addEventListener('click', () => {setActiveGroup();});
   const archiveButton = document.querySelector('#archiveButton');

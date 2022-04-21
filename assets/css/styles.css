@@ -64,7 +64,7 @@ body {
 }
 .main-header {
   padding: 10px;
-  background-color: blue;
+  background-color: #999;
   color: white;
   font-weight: bold;
   border-radius: 5px;
@@ -95,7 +95,7 @@ body {
   padding: 10px;
   color: white;
   font-weight: bold;
-  background-color: black;
+  background-color: #999;
 }
 .idea {
   background-image: url('../img/idea.png');
@@ -110,15 +110,20 @@ body {
   background-repeat: no-repeat;
   background-position: left center;
   padding: 5px 5px 5px 26px;
-  color: white;
-  background-color: #aaa;
+  color: black;
+  background-color: #eee;
   margin-bottom: 2px;
   cursor: pointer;
+  transition: all 0.2s;
+}
+.group-item:hover {
+  background-color: #bbb;
 }
 .btn {
   padding: 10px;
   background-color: #eee;
   border-radius: 5px;
+  cursor: pointer;
 }
 .btn-on {
   background-color: white;
@@ -127,21 +132,25 @@ body {
 .note-item {
   background-repeat: no-repeat;
   background-position: left center;
-  padding: 5px 5px 5px 26px;
-  color: white;
-  background-color: #aaa;
+  padding: 5px 5px 5px 28px;
+  color: black;
+  background-color: #eee;
   margin-bottom: 2px;
-  cursor: pointer;
+  transition: all 0.2s;
+}
+.note-item:hover {
+  background-color: #bbb;
 }
 .active {
-  background-color: #eeffff;
-  color: #999;
+  background-color: #999;
+  color: white;
 }
 .note-item-btn{
   background-repeat: no-repeat;
   background-position: center;
   height: 25px;
   width: 25px;
+  cursor: pointer;
 }
 .btn-edit {
   background-image: url('../img/edit.png');
@@ -154,4 +163,31 @@ body {
 }
 .btn-delete {
   background-image: url('../img/delete.png');
+}
+.modal-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  zindex: 10;
+}
+.modal-window {
+  margin: 3rem auto;
+  width: 500px;
+  background-color: white;
+  border-radius: 5px;
+}
+.modal-title {
+  padding: 10px;
+}
+.modal-close {
+  margin: 10px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modal-body {
+  padding: 10px;
 }
