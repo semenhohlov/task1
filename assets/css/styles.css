@@ -85,7 +85,10 @@ body {
   flex: 1;
 }
 .panel {
-  background-color: #eeffff;
+  padding: 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 .footer {
   text-align: center;
@@ -93,4 +96,35 @@ body {
   color: white;
   font-weight: bold;
   background-color: black;
+}
+.idea {
+  background-image: url('../img/idea.png');
+}
+.task {
+  background-image: url('../img/task.png');
+}
+.thought {
+  background-image: url('../img/thought.png');
+}
+.group-item {
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding: 5px 5px 5px 26px;
+  color: white;
+  background-color: #aaa;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+.note-item {
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding: 5px 5px 5px 26px;
+  color: white;
+  background-color: #aaa;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+.active {
+  background-color: #eeffff;
+  color: #999;
 }

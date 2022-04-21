@@ -63,23 +63,25 @@ export function rootReducer(state, action) {
   }
 }
 
+const store = createStore(rootReducer, initialState);
+
 export function load(payload) {
-  return {type: LOAD, payload};
+  store.dispatch({type: LOAD, payload});
 }
 export function addNote(payload) {
-  return {type: ADD_NOTE, payload};
+  store.dispatch({type: ADD_NOTE, payload});
 }
 export function updateNote(payload) {
-  return {type: UPDATE_NOTE, payload};
+  store.dispatch({type: UPDATE_NOTE, payload});
 }
 export function deleteNote(payload) {
-  return {type: DELETE_NOTE, payload};
+  store.dispatch({type: DELETE_NOTE, payload});
 }
 export function showArchive() {
-  return {type: SHOW_ARCHIVE};
+  store.dispatch({type: SHOW_ARCHIVE});
 }
 export function setActiveGroup(payload) {
-  return {type: SET_ACTIVE_GROUP, payload};
+  store.dispatch({type: SET_ACTIVE_GROUP, payload});
 }
 
-export default createStore(rootReducer, initialState);
+export default store;

@@ -68,7 +68,7 @@ const initialData = {
     },
     {
       created_at: 1650478628418,
-      group_id: 1,
+      group_id: 3,
       content: "Вивчити JS",
       archived: false,
       updated_at: []
@@ -82,7 +82,7 @@ const initialData = {
     },
     {
       created_at: 1650478648418,
-      group_id: 1,
+      group_id: 3,
       content: "Вивчити JS",
       archived: false,
       updated_at: []
