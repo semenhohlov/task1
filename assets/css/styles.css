@@ -179,6 +179,12 @@ body {
   background-color: white;
   border-radius: 5px;
 }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #999;
+}
 .modal-title {
   padding: 10px;
 }

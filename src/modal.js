@@ -31,8 +31,7 @@ export default function modalWindow(title, body, callback = null) {
     event.stopPropagation();
   };
   divWindow.addEventListener('click', divWindow.clickHandler);
-  divHeader.classList.add('flex');
-  divHeader.classList.add('content-space-between');
+  divHeader.classList.add('modal-header');
   divTitle.classList.add('modal-title');
   divClose.classList.add('modal-close');
   divClose.id = 'modal-close';
@@ -41,7 +40,8 @@ export default function modalWindow(title, body, callback = null) {
   divClose.addEventListener('click', divClose.clickHandler);
   divBody.classList.add('modal-body');
   divTitle.innerHTML = title;
-  divBody.innerHTML = body;
+  divBody.appendChild(body);
+  // divBody.innerHTML = body;
   divWindow.appendChild(divHeader);
   divHeader.appendChild(divTitle);
   divHeader.appendChild(divClose);
