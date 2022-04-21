@@ -69,9 +69,11 @@ export function load(payload) {
   store.dispatch({type: LOAD, payload});
 }
 export function addNote(payload) {
+  payload.created_at = Date.now();
   store.dispatch({type: ADD_NOTE, payload});
 }
 export function updateNote(payload) {
+  payload.updated_at.push(Date.now());
   store.dispatch({type: UPDATE_NOTE, payload});
 }
 export function deleteNote(payload) {

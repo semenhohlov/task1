@@ -115,6 +115,15 @@ body {
   margin-bottom: 2px;
   cursor: pointer;
 }
+.btn {
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+}
+.btn-on {
+  background-color: white;
+  border: 1px solid #aaa;
+}
 .note-item {
   background-repeat: no-repeat;
   background-position: left center;
@@ -127,4 +136,22 @@ body {
 .active {
   background-color: #eeffff;
   color: #999;
+}
+.note-item-btn{
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 25px;
+  width: 25px;
+}
+.btn-edit {
+  background-image: url('../img/edit.png');
+}
+.btn-archive {
+  background-image: url('../img/archive.png');
+}
+.btn-unarchive {
+  background-image: url('../img/unarchive.png');
+}
+.btn-delete {
+  background-image: url('../img/delete.png');
 }

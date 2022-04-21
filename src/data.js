@@ -55,14 +55,14 @@ const initialData = {
     {
       created_at: 1650478608418,
       group_id: 1,
-      content: "Вивчити JS",
-      archived: false,
+      content: "Вивчити Vue",
+      archived: true,
       updated_at: []
     },
     {
       created_at: 1650478618418,
       group_id: 1,
-      content: "Вивчити JS",
+      content: "Вивчити React",
       archived: false,
       updated_at: []
     },
@@ -76,14 +76,14 @@ const initialData = {
     {
       created_at: 1650478638418,
       group_id: 1,
-      content: "Вивчити JS",
-      archived: false,
+      content: "Вивчити Redux",
+      archived: true,
       updated_at: []
     },
     {
       created_at: 1650478648418,
       group_id: 3,
-      content: "Вивчити JS",
+      content: "Вивчити TypeScript",
       archived: false,
       updated_at: []
     },
