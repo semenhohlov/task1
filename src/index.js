@@ -25,7 +25,18 @@ function start() {
   const notesContent = document.querySelector('#notesContent');
   const nt = new Notes(Store.getState, notesContent, addNote, deleteNote, updateNote, modalWindow);
   addButton.addEventListener('click', () => {
-    modalWindow('Новий нотаток', nt.form());
+    const modal = modalWindow({
+      title: 'Новий нотаток',
+      content: nt.form(),
+      buttons: [
+        {
+          title: 'Додати',
+          className: 'btn',
+          handle: nt.add.bind(nt)
+        }
+      ]
+    });
+    modal.open();
   });
   nt.show();
   Store.subscribe(gr.update.bind(gr));

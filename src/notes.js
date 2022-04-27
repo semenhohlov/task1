@@ -30,7 +30,18 @@ export default class Notes {
       divFlex.classList.add('content-space-between');
       item.editHandler = (event) => {
         event.preventDefault();
-        this.modalWindow('Редагувати нотаток', this.form(item));
+        const modal = this.modalWindow({
+          title: 'Редагувати нотаток',
+          content: this.form(item),
+          buttons: [
+            {
+              title: 'Зберегти',
+              className: 'btn',
+              handle: this.save.bind(this)
+            }
+          ]
+        });
+        modal.open();
       };
       item.archiveHandler = (event) => {
         event.preventDefault();
@@ -97,60 +108,36 @@ export default class Notes {
     this.show();
   }
   form(item = null) {
-    const form = document.createElement('form');
-    const inputSelect = document.createElement('select');
-    const inputText = document.createElement('input');
-    const inputSubmit = document.createElement('input');
-    inputSelect.append(new Option('Завдання', '1'));
-    inputSelect.append(new Option('Думки', '2'));
-    inputSelect.append(new Option('Ідеї', '3'));
-    if (item) {
-      inputText.value = item.content;
-      inputSelect.value = item.group_id;
-    }
-    inputSubmit.type = 'submit';
-    inputSubmit.value = 'Додати';
-    const div1 = document.createElement('div');
-    div1.classList.add('row');
-    div1.classList.add('mb-1');
-    div1.innerHTML = 'Групи: ';
-    div1.insertAdjacentElement('beforeend', inputSelect);
-    form.insertAdjacentElement('beforeend', div1);
-    const div2 = document.createElement('div');
-    div2.classList.add('row');
-    div2.classList.add('mb-1');
-    div2.innerHTML = 'Нотаток: ';
-    div2.insertAdjacentElement('beforeend', inputText);
-    form.insertAdjacentElement('beforeend', div2);
-    const div3 = document.createElement('div');
-    div3.classList.add('row');
-    div3.classList.add('mb-1');
-    div3.classList.add('center');
-    div3.insertAdjacentElement('beforeend', inputSubmit);
-    form.insertAdjacentElement('beforeend', div3);
-    inputSubmit.onclick = (event) => {
-      event.preventDefault();
-      const content = inputText.value.trim();
-      if (!content){
-        return;
-      }
-      if (!item) {
-        const note = {
-          group_id: parseInt(inputSelect.value),
-          content,
-          archived: false,
-          updated_at: []
-        }
-        this.addNote(note);
-      } else {
-        item.content = content;
-        item.group_id = parseInt(inputSelect.value);
-        this.updateNote(item);
-      }
-      //closeModal
-      const modalClose = document.querySelector('#modal-close');
-      modalClose.click();
-    };
-    return form;
+    const content = item ? item.content : '';
+    const created_at = item ? `<input type="hidden" name="created_at" value="${item.created_at}" />` : '';
+    const options = ['Завдання', 'Думки','Ідеї'].map((it, i) => {
+      return `<option value="${i + 1}" ${(item && (item.group_id === (i + 1))) ? 'selected' : ''}>${it}</option>`;
+    }).join('');
+    const formContent = `
+      <form>
+        ${created_at}
+        <div class="mb-1">
+          Групи:
+          <select name="group">${options}</select>
+        </div>
+        <div class="mb-1">
+          <input type="text" name="name" value="${content}" />
+        </div>
+      </form>
+    `;
+    return formContent;
+  }
+  save() {
+    const form = document.querySelector('form');
+    this.updateNote({
+      created_at: +form[0].value,
+      group_id: +form[1].value,
+      content: form[2].value,
+      updated_at: []
+    });
+  }
+  add() {
+    const form = document.querySelector('form');
+    this.addNote({group_id: +form[0].value, content: form[1].value, updated_at: []});
   }
 };

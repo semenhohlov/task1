@@ -1,51 +1,74 @@
-export default function modalWindow(title, body, callback = null) {
-  function closeModal(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    if (callback) {
-      callback();
-    }
-    const div = document.querySelector('#modal-back');
-    div.removeEventListener('click', div.clickHandler);
-    const divW = document.querySelector('#modal-window');
-    divW.removeEventListener('click', divW.clickHandler);
-    const divC = document.querySelector('#modal-close');
-    divC.removeEventListener('click', divC.clickHandler);
-    document.body.removeChild(div);
-  };
+function _createModal(options) {
+  const $modal = document.createElement('div');
+  $modal.classList.add('modal-back');
+  $modal.dataset.close = 'true';
+  const template = `
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">${options.title || 'Modal title'}</div>
+        <div class="modal-close-btn" data-close="true">&times;</div>
+      </div>
+      <div class="modal-content">${options.content || 'Some content'}</div>
+    </div>
+  `;
+  $modal.insertAdjacentHTML('beforeend', template);
+  document.body.appendChild($modal);
+  return $modal;
+}
 
-  const divBack = document.createElement('div');
-  const divWindow = document.createElement('div');
-  const divTitle = document.createElement('div');
-  const divClose = document.createElement('div');
-  const divHeader = document.createElement('div');
-  const divBody = document.createElement('div');
-  divBack.classList.add('modal-back');
-  divBack.id = 'modal-back';
-  divBack.clickHandler = closeModal;
-  divBack.addEventListener('click', divBack.clickHandler);
-  divWindow.classList.add('modal-window');
-  divWindow.id = 'modal-window';
-  divWindow.clickHandler = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+export default function modalWindow(options) {
+  const $modal = _createModal(options);
+  let isDestroed = false;
+  const buttons = [];
+  const closeHandler = (event) => {
+    if (event.target.dataset.close === 'true') {
+      close();
+    }
   };
-  divWindow.addEventListener('click', divWindow.clickHandler);
-  divHeader.classList.add('modal-header');
-  divTitle.classList.add('modal-title');
-  divClose.classList.add('modal-close');
-  divClose.id = 'modal-close';
-  divClose.innerHTML = '&times;';
-  divClose.clickHandler = closeModal;
-  divClose.addEventListener('click', divClose.clickHandler);
-  divBody.classList.add('modal-body');
-  divTitle.innerHTML = title;
-  divBody.appendChild(body);
-  // divBody.innerHTML = body;
-  divWindow.appendChild(divHeader);
-  divHeader.appendChild(divTitle);
-  divHeader.appendChild(divClose);
-  divWindow.appendChild(divBody);
-  divBack.appendChild(divWindow);
-  document.body.appendChild(divBack);
+  $modal.addEventListener('click', closeHandler);
+  const close = () => {
+    $modal.classList.remove('show');
+    $modal.removeEventListener('click', closeHandler);
+    buttons.forEach(btn => {
+      btn.button.removeEventListener('click', btn.clickHandler);
+    });
+    isDestroed = true;
+    $modal.parentNode.removeChild($modal);
+  }
+  if (options.buttons && options.buttons.length) {
+    const $modalBox = $modal.querySelector('.modal-box');
+    const $footer = document.createElement('div');
+    $footer.classList.add('modal-footer');
+    options.buttons.forEach(btn => {
+      const $btnTmp = document.createElement('button');
+      $btnTmp.innerHTML = btn.title;
+      $btnTmp.className = btn.className;
+      const clickHandler = () => {
+        btn.handle();
+        close();
+      }
+      $btnTmp.addEventListener('click', clickHandler);
+      buttons.push({
+        button: $btnTmp,
+        clickHandler
+      });
+      $footer.appendChild($btnTmp);
+    });
+    $modalBox.appendChild($footer);
+  }
+
+  return {
+    open() {
+      if (!isDestroed){
+        $modal.classList.add('show');
+      } else {
+        console.log('Modal is destroed.');
+      }
+    },
+    close
+  };
+}
+
+function noop() {
+  console.log('noop');
 }

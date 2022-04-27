@@ -165,35 +165,53 @@ body {
   background-image: url('../img/delete.png');
 }
 .modal-back {
-  position: absolute;
+  display: none;
+  position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  zindex: 10;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.modal-window {
-  margin: 3rem auto;
-  width: 500px;
+.show {
+  display: block;
+}
+.modal-box {
   background-color: white;
+  width: 400px;
+  margin: 100px auto;
   border-radius: 5px;
 }
 .modal-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
-  border-bottom: 1px solid #999;
+  padding: 1rem;
+  border-bottom: 1px solid #aaa;
 }
 .modal-title {
-  padding: 10px;
+
 }
-.modal-close {
-  margin: 10px;
-  border: 1px solid #aaa;
-  border-radius: 5px;
+.modal-close-btn {
   cursor: pointer;
 }
-.modal-body {
+.modal-close-btn:hover {
+  background-color: red;
+  border-radius: 5px;
+}
+.modal-content {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.modal-footer {
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-top: 1px solid #aaa;
+}
+.btn {
   padding: 10px;
+  border-radius: 5px;
+  background-color: #ffaaff;
 }
